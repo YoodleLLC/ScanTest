@@ -19,10 +19,10 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore Packages
-      run: nuget restore eDecide.sln
+      run: nuget restore veracode.sln
 
     - name: Create Build Directory
       run: mkdir _build
     
     - name: Build Solution
-      run: msbuild eDecide.sln /p:OutputPath=bin /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true /p:PublishUrl="../_build"
+      run: msbuild veracode.sln /p:OutputPath=bin /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true /p:PublishUrl="../_build"

@@ -27,6 +27,14 @@ jobs:
     - name: Build Solution
       run: msbuild veracode.sln /p:OutputPath=bin /p:DeployOnBuild=true /p:PackageAsSingleFile=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true /p:PublishUrl="/_build"
 
+    - name: Check dir
+      run: dir
+      
+    - uses: actions/upload-artifact@master
+      with:
+        name: veracode_zip
+        path: D:/a/ScanTest/ScanTest/bin/_PublishedWebsites/veracode_Package/veracode.zip
+        
   pipeline-scan:
     needs: build
     runs-on: ubuntu-latest
@@ -41,7 +49,11 @@ jobs:
           args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
       - name: Unzip the Pipeline Scanner
         run: unzip pipeline-scan-LATEST.zip
+      - uses: actions/download-artifact@master
+        with:
+          name: veracode_zip
+
       - name: Check dir
         run: ls
       - name: Run Pipeline Scanner
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "D:/a/ScanTest/ScanTest/bin/_PublishedWebsites/veracode_Package/veracode.zip" --fail_on_severity="Very High, High"
+        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "veracode.zip" --fail_on_severity="Very High, High"

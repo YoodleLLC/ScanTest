@@ -33,7 +33,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: veracode_zip
-        path: D:/a/ScanTest/ScanTest/bin/_PublishedWebsites/veracode_Package/veracode.zip
+        path: bin/_PublishedWebsites/veracode_Package/veracode.zip
         
   pipeline-scan:
     needs: build
@@ -56,4 +56,4 @@ jobs:
       - name: Check dir
         run: ls
       - name: Run Pipeline Scanner
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "d05d511ef2f1aae3e19de11b61fef6f9" --veracode_api_key "69dcfe16b419179ee269a96dd8c47443e8859bda49b5ce87c9aa077eb00d28caceeaf43859afe29b5500c6b3e664d18be4536fa20fee9d219f72ed17c5094b98" --file "veracode.zip" --fail_on_severity="Very High, High"
+        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{ secrets.VERACODE_API_ID }}" --veracode_api_key "${{ secrets.VERACODE_API_KEY }}" --file "veracode.zip" --fail_on_severity="Very High, High"

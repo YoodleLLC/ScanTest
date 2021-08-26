@@ -28,6 +28,7 @@ jobs:
       run: msbuild veracode.sln /p:OutputPath=bin /p:DeployOnBuild=true /p:PackageAsSingleFile=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true /p:PublishUrl="/_build"
 
   pipeline-scan:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 1.8

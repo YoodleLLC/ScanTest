@@ -28,14 +28,14 @@ jobs:
       run: msbuild veracode.sln /p:OutputPath=bin /p:DeployOnBuild=true /p:PackageAsSingleFile=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true /p:PublishUrl="/_build"
 
     - name: Check dir
-      run: dir
+      run: dir /s /b /o:gn
       
     - uses: actions/upload-artifact@master
       with:
         name: veracode_zip
         path: bin/_PublishedWebsites/veracode_Package/veracode.zip
         
-  pipeline-scan:
+  full-scan:
     needs: build
     runs-on: ubuntu-latest
     steps:

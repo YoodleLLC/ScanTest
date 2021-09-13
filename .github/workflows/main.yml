@@ -30,10 +30,14 @@ jobs:
     - name: Check dir
       run: dir -s
       
+    - uses: papeloto/action-zip@v1
+      with:
+            files: bin/
+            dest: veracode.zip
     - uses: actions/upload-artifact@master
       with:
         name: veracode_zip
-        path: bin/_PublishedWebsites/veracode_Package/veracode.zip
+        path: veracode.zip
         
   full-scan:
     needs: build

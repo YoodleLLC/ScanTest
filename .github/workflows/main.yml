@@ -56,4 +56,5 @@ jobs:
       - name: Check dir
         run: ls
       - name: Run Pipeline Scanner
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{ secrets.VERACODE_API_ID }}" --veracode_api_key "${{ secrets.VERACODE_API_KEY }}" --file "veracode.zip" --fail_on_severity="Very High, High"
+        run: java -jar pipeline-scan.jar -v -jd {true} -jo {true} -f "veracode.zip" -vid "${{ secrets.VERACODE_API_ID }}" -vkey "${{ secrets.VERACODE_API_KEY }}"
+    

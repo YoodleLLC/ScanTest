@@ -47,18 +47,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Download the Pipeline Scanner
-        uses: wei/curl@master
-        with:
-          args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-      - name: Unzip the Pipeline Scanner
-        run: unzip pipeline-scan-LATEST.zip
+          
       - uses: actions/download-artifact@master
         with:
           name: veracode_zip
+          
+      - name: Download Veracode Policy/Static Scan
+        run: VERACODE_WRAPPER_VERSION=$(curl -sS "https://search.maven.org/solrsearch/select?q=g:%22com.veracode.vosp.api.wrappers%22&rows=20&wt=json" | jq -r '.response.docs[0].latestVersion') && curl -sS -o veracode-wrapper.jar "https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/${VERACODE_WRAPPER_VERSION}/vosp-api-wrappers-java-${VERACODE_WRAPPER_VERSION}.jar"
 
-      - name: Check dir
-        run: ls
-      - name: Run Pipeline Scanner
-        run: java -jar pipeline-scan.jar -v -jd {true} -jo {true} -f "veracode.zip" -vid "${{ secrets.VERACODE_API_ID }}" -vkey "${{ secrets.VERACODE_API_KEY }}"
-    
+      - name: Run Policy/Static Scan
+        run: java -jar veracode-wrapper.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}} -action uploadandscan -appname "NW.org GitHub Integration" -filepath "veracode.zip" -createprofile false -version "09_17_2021_v1" -createsandbox false -autoscan true   
+        
+      - name: Finish Scan
+        run: echo "complete"

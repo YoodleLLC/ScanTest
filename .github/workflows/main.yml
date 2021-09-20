@@ -25,7 +25,7 @@ jobs:
       run: mkdir _build
     
     - name: Build Solution
-      run: msbuild veracode.sln /t:Rebuild /p:OutputPath=custom_build /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true 
+      run: msbuild veracode.sln /t:Rebuild /p:OutputPath=custom_build /p:UseWPP_CopyWebApplication=true /p:PipelineDependsOnBuild=false /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true 
 
     - name: Check dir
       run: dir -s

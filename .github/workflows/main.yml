@@ -30,6 +30,12 @@ jobs:
     - name: Check dir
       run: dir -s
       
+    - name: Delete dir
+      run: rm -R -Force custom_build/_PublishedWebsites/veracode/bin/roslyn/
+    
+    - name: Delete dir
+      run: rm -R -Force custom_build/_PublishedWebsites/veracode_Package/veracode.zip
+      
     - uses: papeloto/action-zip@v1
       with:
             files: custom_build/

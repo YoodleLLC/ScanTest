@@ -66,13 +66,13 @@ jobs:
         run: unzip pipeline-scan-LATEST.zip
         
       - name: Run Pipeline Scanner
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar -v -jd {true} -jo {true} -f "veracode.zip" -vid "${{ secrets.VERACODE_API_ID }}" -vkey "${{ secrets.VERACODE_API_KEY }}"          
+        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "veracode.zip" --fail_on_severity="Very High, High"          
       
       - name: Download Veracode Policy/Static Scan
         run: VERACODE_WRAPPER_VERSION=$(curl -sS "https://search.maven.org/solrsearch/select?q=g:%22com.veracode.vosp.api.wrappers%22&rows=20&wt=json" | jq -r '.response.docs[0].latestVersion') && curl -sS -o veracode-wrapper.jar "https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/${VERACODE_WRAPPER_VERSION}/vosp-api-wrappers-java-${VERACODE_WRAPPER_VERSION}.jar"
 
       - name: Run Policy/Static Scan
-        run: java -jar veracode-wrapper.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}} -action uploadandscan -appname "NW.org GitHub Integration" -filepath "veracode.zip" -createprofile false -version "09_17_2021_v1" -createsandbox false -autoscan true   
+        run: java -jar veracode-wrapper.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}} -action uploadandscan -appname "NW.org GitHub Integration" -filepath "veracode.zip" -createprofile false -version "09_20_2021_v1" -createsandbox false -autoscan true   
         
       - name: Finish Scan
         run: echo "complete"

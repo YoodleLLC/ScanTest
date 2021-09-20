@@ -57,7 +57,14 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: veracode_zip
-          
+
+      - name: Download the Pipeline Scanner
+        uses: wei/curl@master
+        with:
+          args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+      - name: Unzip the Pipeline Scanner
+        run: unzip pipeline-scan-LATEST.zip
+        
       - name: Run Pipeline Scanner
         run: java -jar pipeline-scan.jar -v -jd {true} -jo {true} -f "veracode.zip" -vid "${{ secrets.VERACODE_API_ID }}" -vkey "${{ secrets.VERACODE_API_KEY }}"          
       

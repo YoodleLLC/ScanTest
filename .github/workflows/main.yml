@@ -27,13 +27,13 @@ jobs:
     - name: Build Solution
       run: msbuild veracode.sln /t:Rebuild /p:OutputPath=custom_build /p:UseWPP_CopyWebApplication=true /p:PipelineDependsOnBuild=false /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:PrecompileBeforePublish=true /p:EnableUpdateable=false /p:DebugSymbols=true /p:UseMerge=false /p:DeleteAppCodeCompiledFiles=True /p:DeleteExistingFiles=True /p:WDPMergeOption=CreateSeparateAssembly /p:UseFixedNames=true 
 
-    - name: Check dir
+    - name: Check directory
       run: dir -s
       
-    - name: Delete dir
+    - name: Delete rosylyn directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode/bin/roslyn/
     
-    - name: Delete dir
+    - name: Delete .zip directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode_Package/veracode.zip
       
     - uses: papeloto/action-zip@v1

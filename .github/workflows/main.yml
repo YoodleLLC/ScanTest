@@ -75,4 +75,4 @@ jobs:
         run: java -jar veracode-wrapper.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}} -action uploadandscan -appname "NW.org GitHub Integration" -filepath "veracode.zip" -createprofile false -version "09_20_2021_v1" -createsandbox false -autoscan true   
         
       - name: Finish Scan
-        run: echo "complete"
+        run: echo "Completed Scan"

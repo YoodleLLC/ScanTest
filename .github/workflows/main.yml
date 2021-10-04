@@ -30,6 +30,9 @@ jobs:
     - name: Check directory
       run: dir -s
       
+    - name: Check JSA file
+      run: dir -s *.jsa
+      
     - name: Delete rosylyn directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode/bin/roslyn/
     

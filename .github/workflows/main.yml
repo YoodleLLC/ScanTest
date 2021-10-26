@@ -36,6 +36,12 @@ jobs:
     - name: Delete rosylyn directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode/bin/roslyn/
     
+    - name: Delete Scripts directory
+      run: rm -R -Force custom_build/_PublishedWebsites/veracode/Scripts
+    
+    - name: Delete Bootstrap min ccss directory
+      run: rm -R -Force custom_build/_PublishedWebsites/veracode/Content/
+    
     - name: Delete .zip directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode_Package/veracode.zip
       

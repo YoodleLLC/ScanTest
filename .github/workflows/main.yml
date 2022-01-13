@@ -46,10 +46,10 @@ jobs:
     - name: Delete .zip directory
       run: rm -R -Force custom_build/_PublishedWebsites/veracode_Package/veracode.zip
       
-    - uses: papeloto/action-zip@v1
-      with:
-            files: custom_build/
-            dest: veracode.zip
+#     - uses: papeloto/action-zip@v1
+#       with:
+#             files: custom_build/
+#             dest: veracode.zip
     - uses: actions/upload-artifact@master
       with:
         name: veracode_zip

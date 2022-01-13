@@ -50,9 +50,8 @@ jobs:
 #       with:
 #             files: custom_build/
 #             dest: veracode.zip
-    - uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r veracode.zip custom_build/
+    - name: Zipping build folder
+      run: Compress-Archive -LiteralPath custom_build/ -DestinationPath veracode.zip
         
     - uses: actions/upload-artifact@master
       with:
